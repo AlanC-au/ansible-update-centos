@@ -1,0 +1,11 @@
+#
+# Install the XEN guest tools on RHEL style nodes
+#
+  - name: Some machines don't have the xen repo so pulp bind it
+# This is a bit Ugly just bind the repo even is it is allready there as some machines it's missing
+    command : pulp-consumer consumer bind --repoid=xen-rhel{{ansible_lsb.major_release}}-x86_64
+    sudo: yes
+    when: "ansible_virtualization_type == 'xen'"
+  - yum: name=xe-guest-utilities,xe-guest-utilities-xenstore state=latest
+    sudo: yes
+    when: "ansible_virtualization_type == 'xen'"

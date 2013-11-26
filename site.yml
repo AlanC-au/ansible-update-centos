@@ -1,0 +1,7 @@
+---
+-
+ hosts: all
+ sudo: yes
+ roles:
+ - updateall
+ - { role: vmguest, when: "ansible_virtualization_role == 'guest'" }
